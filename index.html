@@ -61,7 +61,6 @@
             z-index: 1;
         }
 
-        /* Header Navigation */
         header {
             padding: 2.5rem 0;
             display: flex;
@@ -116,7 +115,6 @@
             box-shadow: 0 0 10px #22c55e;
         }
 
-        /* Hero Section */
         .hero {
             padding: 6rem 0 4rem;
             max-width: 900px;
@@ -199,7 +197,6 @@
             transform: translateY(-3px);
         }
 
-        /* Section Layouts */
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -305,7 +302,6 @@
             font-size: 0.8rem;
         }
 
-        /* Portfolio Filter Tabs */
         .filter-nav {
             display: flex;
             gap: 0.5rem;
@@ -369,13 +365,41 @@
             inset: 0;
             background-size: cover;
             background-position: center;
-            opacity: 0.4;
-            transition: transform 0.5s ease;
+            opacity: 0.7;
+            transition: transform 0.5s ease, opacity 0.5s ease;
         }
 
         .work-card:hover .work-preview-bg {
             transform: scale(1.05);
-            opacity: 0.6;
+            opacity: 0.9;
+        }
+
+        .play-overlay {
+            width: 50px;
+            height: 50px;
+            background: rgba(7, 9, 14, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            z-index: 2;
+            backdrop-filter: blur(4px);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .work-card:hover .play-overlay {
+            transform: scale(1.1);
+            background: var(--accent-violet);
+            border-color: var(--accent-violet);
+        }
+
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 14px solid #fff;
+            margin-left: 3px;
         }
 
         .work-category-badge {
@@ -392,6 +416,7 @@
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
+            z-index: 2;
         }
 
         .work-details {
@@ -411,7 +436,6 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Fullscreen Glass Modal */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -436,14 +460,14 @@
             background: var(--surface);
             border: 1px solid var(--border);
             width: 100%;
-            max-width: 720px;
+            max-width: 800px;
             border-radius: 24px;
             padding: 3rem;
             position: relative;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             transform: scale(0.95);
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            max-height: 85vh;
+            max-height: 90vh;
             overflow-y: auto;
         }
 
@@ -466,6 +490,7 @@
             display: grid;
             place-items: center;
             transition: background 0.2s ease;
+            z-index: 10;
         }
 
         .modal-close:hover {
@@ -474,17 +499,19 @@
 
         .modal-stage {
             width: 100%;
-            height: 260px;
+            aspect-ratio: 16/9;
             background: #07090e;
             border: 1px solid var(--border);
             border-radius: 16px;
-            margin: 2rem 0;
-            display: grid;
-            place-items: center;
-            color: var(--accent-violet);
-            font-family: var(--font-display);
-            font-weight: 700;
-            letter-spacing: 1px;
+            margin: 1.5rem 0 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .modal-stage iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
         footer {
@@ -501,7 +528,7 @@
             .hero h1 { font-size: 2.75rem; }
             .section-header { flex-direction: column; align-items: flex-start; }
             .services-grid, .works-grid { grid-template-columns: 1fr; }
-            .modal-card { padding: 2rem; }
+            .modal-card { padding: 1.5rem; }
         }
     </style>
 </head>
@@ -575,6 +602,15 @@
     </div>
 
     <script>
+        // Helper function: Accepts ANY YouTube URL format and converts it to an embed-ready string
+        function extractYouTubeId(url) {
+            if (!url) return null;
+            // Matches standard, shortened, embed, and shorts YouTube links
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
         const services = [
             {
                 id: 's1',
@@ -599,13 +635,15 @@
             }
         ];
 
+        // PASTE YOUR NORMAL YOUTUBE LINKS HERE IN 'url'
         const works = [
             {
                 id: 'w1',
                 category: 'PV',
                 title: 'Promotional Debut Trailer',
                 desc: 'Dynamic 60-second premiere trailer crafted with custom motion typography and spatial particle sync.',
-                bg: 'linear-gradient(135deg, #4c1d95, #06b6d4)',
+                url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // <--- Paste standard link here
+                fallbackBg: 'linear-gradient(135deg, #4c1d95, #06b6d4)',
                 chips: ['PV', 'After Effects', 'Typography']
             },
             {
@@ -613,7 +651,8 @@
                 category: 'MV',
                 title: 'Cyberpunk Aesthetic MV',
                 desc: 'Rhythmically synchronized visual composite track created for a fast-paced electronic music release.',
-                bg: 'linear-gradient(135deg, #831843, #3b82f6)',
+                url: 'https://youtu.be/dQw4w9WgXcQ', // <--- Paste short link here
+                fallbackBg: 'linear-gradient(135deg, #831843, #3b82f6)',
                 chips: ['MV', 'Compositing', 'FX']
             },
             {
@@ -621,7 +660,8 @@
                 category: 'AI',
                 title: 'Generative Asset Pipeline',
                 desc: 'Experimental image generation and asset enhancement workflow integrated into motion production.',
-                bg: 'linear-gradient(135deg, #064e3b, #6366f1)',
+                url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // <--- Paste standard link here
+                fallbackBg: 'linear-gradient(135deg, #064e3b, #6366f1)',
                 chips: ['AI', 'Raster Retouch', 'Workflow']
             }
         ];
@@ -646,21 +686,32 @@
             const container = document.getElementById('works-container');
             const filtered = filter === 'all' ? works : works.filter(w => w.category === filter);
             
-            container.innerHTML = filtered.map(w => `
-                <div class="work-card" onclick="openWorkModal('${w.id}')">
-                    <div class="work-preview">
-                        <div class="work-preview-bg" style="background: ${w.bg}"></div>
-                        <span class="work-category-badge">${w.category}</span>
-                    </div>
-                    <div class="work-details">
-                        <h3>${w.title}</h3>
-                        <p>${w.desc}</p>
-                        <div class="tag-group">
-                            ${w.chips.map(c => `<span class="chip">${c}</span>`).join('')}
+            container.innerHTML = filtered.map(w => {
+                const videoId = extractYouTubeId(w.url);
+                // Auto-fetch YouTube thumbnail if ID is available, otherwise use fallback styling
+                const bgStyle = videoId 
+                    ? `background-image: url('https://img.youtube.com/vi/${videoId}/hqdefault.jpg');` 
+                    : `background: ${w.fallbackBg};`;
+
+                return `
+                    <div class="work-card" onclick="openWorkModal('${w.id}')">
+                        <div class="work-preview">
+                            <div class="work-preview-bg" style="${bgStyle}"></div>
+                            <div class="play-overlay">
+                                <div class="play-icon"></div>
+                            </div>
+                            <span class="work-category-badge">${w.category}</span>
+                        </div>
+                        <div class="work-details">
+                            <h3>${w.title}</h3>
+                            <p>${w.desc}</p>
+                            <div class="tag-group">
+                                ${w.chips.map(c => `<span class="chip">${c}</span>`).join('')}
+                            </div>
                         </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function applyFilter(category, btnElement) {
@@ -677,7 +728,6 @@
                 <div class="service-number">${item.num}</div>
                 <h2 style="font-family: var(--font-display); font-size: 2rem; color: var(--text-primary); margin-bottom: 1rem;">${item.title}</h2>
                 <p style="margin-bottom: 1.5rem;">Detailed service engagement framework for ${item.title}. Focused on delivered excellence, production pacing, and complete asset delivery.</p>
-                <div class="modal-stage">[ INTERACTIVE CAPABILITY PREVIEW ]</div>
                 <div class="tag-group" style="margin-bottom: 2rem;">
                     ${item.chips.map(c => `<span class="chip">${c}</span>`).join('')}
                 </div>
@@ -690,11 +740,31 @@
             const item = works.find(w => w.id === id);
             if (!item) return;
 
+            const videoId = extractYouTubeId(item.url);
+            
+            // Build embed frame or fallback display
+            const stageContent = videoId ? `
+                <iframe 
+                    src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
+                    title="${item.title}"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            ` : `
+                <div style="display: grid; place-items: center; height: 100%; color: var(--accent-cyan); font-family: var(--font-display);">
+                    [ Direct Link: <a href="${item.url}" target="_blank" style="color:#fff; text-decoration:underline;">Open External Video</a> ]
+                </div>
+            `;
+
             const content = `
                 <div class="work-category-badge" style="position: relative; top: 0; left: 0; display: inline-block; margin-bottom: 1rem;">${item.category}</div>
                 <h2 style="font-family: var(--font-display); font-size: 2rem; color: var(--text-primary); margin-bottom: 1rem;">${item.title}</h2>
                 <p style="margin-bottom: 1.5rem;">${item.desc}</p>
-                <div class="modal-stage" style="background: ${item.bg}">[ STAGE: ${item.title.toUpperCase()} ]</div>
+                
+                <div class="modal-stage">
+                    ${stageContent}
+                </div>
+                
                 <div class="tag-group" style="margin-bottom: 2rem;">
                     ${item.chips.map(c => `<span class="chip">${c}</span>`).join('')}
                 </div>
@@ -725,6 +795,8 @@
         function closeModal() {
             document.getElementById('modal-overlay').classList.remove('active');
             document.body.style.overflow = 'auto';
+            // Clear inner HTML to stop video audio playing when closed
+            document.getElementById('modal-content').innerHTML = '';
         }
 
         function handleOverlayClick(e) {
