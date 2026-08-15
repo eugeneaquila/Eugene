@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yujin — Motion Graphic Designer & AI Specialist</title>
+    <title>YUJIN — Motion & Visual Engineering</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0b0c10;
-            --card-bg: #1f2833;
-            --accent-color: #66fcf1;
-            --accent-dim: #45a29e;
-            --text-main: #c5c6c7;
-            --text-bright: #ffffff;
-            --overlay-bg: rgba(11, 12, 16, 0.85);
-            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --bg: #07090e;
+            --surface: #0f141c;
+            --surface-hover: #171f2b;
+            --accent-violet: #8b5cf6;
+            --accent-cyan: #06b6d4;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+            --glow: rgba(139, 92, 246, 0.15);
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
         }
 
         * {
@@ -23,517 +29,712 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: var(--font-family);
+            background-color: var(--bg);
+            color: var(--text-secondary);
+            font-family: var(--font-body);
             line-height: 1.6;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(6, 182, 212, 0.06) 0%, transparent 40%);
         }
 
+        .ambient-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 60px 60px;
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Navigation */
         header {
-            padding: 2rem;
+            padding: 2.5rem 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
         }
 
-        .logo {
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-violet), var(--accent-cyan));
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            font-family: var(--font-display);
             font-weight: 700;
+        }
+
+        .brand-name {
+            font-family: var(--font-display);
             font-size: 1.25rem;
-            color: var(--text-bright);
-            letter-spacing: 1px;
-            cursor: pointer;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
         }
 
-        .status-badge {
-            background: rgba(102, 252, 241, 0.1);
-            border: 1px solid var(--accent-dim);
-            color: var(--accent-color);
-            padding: 0.35rem 0.8rem;
-            border-radius: 20px;
+        .status-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
             font-size: 0.85rem;
-            font-weight: 500;
+            color: var(--text-primary);
         }
 
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            width: 100%;
-            flex-grow: 1;
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #22c55e;
         }
 
+        /* Hero Section */
         .hero {
-            margin-bottom: 4rem;
+            padding: 6rem 0 4rem;
+            max-width: 900px;
+        }
+
+        .hero-tag {
+            font-family: var(--font-display);
+            color: var(--accent-cyan);
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            color: var(--text-bright);
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            font-weight: 800;
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            line-height: 1.05;
+            color: var(--text-primary);
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 1.75rem;
         }
 
-        .hero h1 span {
-            color: var(--accent-color);
+        .gradient-text {
+            background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-violet) 70%, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero p {
             font-size: 1.25rem;
-            max-width: 600px;
-            color: var(--text-main);
-            margin-bottom: 2rem;
+            line-height: 1.7;
+            max-width: 680px;
+            margin-bottom: 3rem;
         }
 
-        .cta-buttons {
+        .hero-actions {
             display: flex;
-            gap: 1rem;
+            gap: 1.25rem;
             flex-wrap: wrap;
         }
 
         .btn {
-            display: inline-block;
-            padding: 0.8rem 1.75rem;
-            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
             font-weight: 600;
-            text-decoration: none;
+            font-size: 1rem;
             cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             border: none;
-            transition: all 0.2s ease;
+            text-decoration: none;
         }
 
         .btn-primary {
-            background-color: var(--accent-color);
-            color: var(--bg-color);
+            background: var(--text-primary);
+            color: var(--bg);
+            box-shadow: 0 10px 30px rgba(248, 250, 252, 0.15);
         }
 
         .btn-primary:hover {
-            background-color: var(--accent-dim);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            background: #ffffff;
+            box-shadow: 0 15px 35px rgba(248, 250, 252, 0.25);
         }
 
         .btn-secondary {
-            border: 1px solid var(--text-main);
-            color: var(--text-bright);
-            background: transparent;
+            background: var(--surface);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
         }
 
         .btn-secondary:hover {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-            transform: translateY(-2px);
+            background: var(--surface-hover);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
         }
 
-        .filter-bar {
+        /* Section Layouts */
+        .section-header {
             display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2.5rem;
             flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-main);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .filter-btn.active, .filter-btn:hover {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-            background: rgba(102, 252, 241, 0.05);
+            gap: 1.5rem;
         }
 
         .section-title {
-            font-size: 1.5rem;
-            color: var(--text-bright);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--text-primary);
+            font-weight: 700;
+            letter-spacing: -1px;
         }
 
-        .grid {
+        .section-desc {
+            font-size: 0.95rem;
+            max-width: 450px;
+        }
+
+        .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 4rem;
+            margin-bottom: 8rem;
         }
 
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.2s ease, border-color 0.2s ease;
+        .service-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-dim);
-        }
-
-        .card h3 {
-            color: var(--text-bright);
-            margin-bottom: 0.5rem;
-        }
-
-        .card p {
-            font-size: 0.95rem;
-            color: var(--text-main);
-        }
-
-        .card-footer {
-            margin-top: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .tag {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--accent-color);
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-        }
-
-        .view-more {
-            font-size: 0.85rem;
-            color: var(--accent-color);
-            font-weight: 600;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
+        .service-card::before {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--overlay-bg);
-            backdrop-filter: blur(8px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 1.5rem;
+            background: radial-gradient(circle at top right, var(--glow), transparent 60%);
             opacity: 0;
-            transition: opacity 0.25s ease;
+            transition: opacity 0.3s ease;
         }
 
-        .modal.active {
-            display: flex;
+        .service-card:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            transform: translateY(-6px);
+        }
+
+        .service-card:hover::before {
             opacity: 1;
         }
 
-        .modal-content {
-            background: var(--card-bg);
-            border: 1px solid var(--accent-dim);
-            border-radius: 12px;
-            max-width: 650px;
-            width: 100%;
-            padding: 2rem;
+        .service-number {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-violet);
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
             position: relative;
-            transform: translateY(20px);
-            transition: transform 0.25s ease;
+            z-index: 1;
+        }
+
+        .tag-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .chip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 0.3rem 0.75rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+        }
+
+        /* Portfolio Filter Tabs */
+        .filter-nav {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--surface);
+            padding: 0.35rem;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 0.6rem 1.25rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn.active {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+        }
+
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 2rem;
+            margin-bottom: 8rem;
+        }
+
+        .work-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .work-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-6px);
+        }
+
+        .work-preview {
+            width: 100%;
+            height: 220px;
+            background: #0b0f17;
+            position: relative;
+            display: grid;
+            place-items: center;
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .work-preview-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.4;
+            transition: transform 0.5s ease;
+        }
+
+        .work-card:hover .work-preview-bg {
+            transform: scale(1.05);
+            opacity: 0.6;
+        }
+
+        .work-category-badge {
+            position: absolute;
+            top: 1.25rem;
+            left: 1.25rem;
+            background: rgba(7, 9, 14, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border);
+            color: var(--accent-cyan);
+            padding: 0.3rem 0.75rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .work-details {
+            padding: 2rem;
+        }
+
+        .work-details h3 {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .work-details p {
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Fullscreen Glass Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(7, 9, 14, 0.85);
+            backdrop-filter: blur(16px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            width: 100%;
+            max-width: 720px;
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             max-height: 85vh;
             overflow-y: auto;
         }
 
-        .modal.active .modal-content {
-            transform: translateY(0);
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
         }
 
-        .close-btn {
+        .modal-close {
             position: absolute;
-            top: 1.25rem;
-            right: 1.25rem;
-            background: transparent;
-            border: none;
-            color: var(--text-main);
-            font-size: 1.5rem;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            color: var(--text-primary);
+            font-size: 1.25rem;
             cursor: pointer;
-            line-height: 1;
+            display: grid;
+            place-items: center;
+            transition: background 0.2s ease;
         }
 
-        .close-btn:hover {
-            color: var(--accent-color);
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        .modal-header h2 {
-            color: var(--text-bright);
-            margin-bottom: 0.5rem;
-            padding-right: 2rem;
-        }
-
-        .modal-meta {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-body {
-            color: var(--text-main);
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-body p {
-            margin-bottom: 1rem;
-        }
-
-        .modal-preview {
+        .modal-stage {
             width: 100%;
-            height: 200px;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            border: 1px dashed rgba(255, 255, 255, 0.1);
-            color: var(--accent-dim);
-            font-size: 0.9rem;
+            height: 260px;
+            background: #07090e;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin: 2rem 0;
+            display: grid;
+            place-items: center;
+            color: var(--accent-violet);
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
         footer {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-main);
+            border-top: 1px solid var(--border);
+            padding: 4rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
         }
 
-        footer a {
-            color: var(--accent-color);
-            text-decoration: none;
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.75rem; }
+            .section-header { flex-direction: column; align-items: flex-start; }
+            .services-grid, .works-grid { grid-template-columns: 1fr; }
+            .modal-card { padding: 2rem; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">YUJIN</div>
-        <div class="status-badge">Available for Projects</div>
-    </header>
+    <div class="ambient-grid"></div>
 
-    <main>
+    <div class="container">
+        <header>
+            <a href="#" class="brand">
+                <div class="brand-icon">Y</div>
+                <span class="brand-name">YUJIN</span>
+            </a>
+            <div class="status-pill">
+                <div class="status-dot"></div>
+                <span>Available for Select Commissions</span>
+            </div>
+        </header>
+
         <section class="hero">
-            <h1>Motion Graphics & <span>AI Integration</span></h1>
-            <p>Crafting dynamic visual experiences, promotional trailers, MVs, and high-impact visual content powered by modern creative tools.</p>
-            <div class="cta-buttons">
-                <button class="btn btn-primary" onclick="scrollToSection('works')">View Works</button>
-                <button class="btn btn-secondary" onclick="openContactModal()">Get in Touch</button>
+            <div class="hero-tag">Motion & Visual Engineering</div>
+            <h1>Architecting <span class="gradient-text">visual kinetic</span> experiences.</h1>
+            <p>Specializing in custom promotional debut trailers, music videos (MVs), and AI-augmented creative pipelines for digital-first creators and visual properties.</p>
+            <div class="hero-actions">
+                <button class="btn btn-primary" onclick="scrollToId('works-section')">Explore Portfolio</button>
+                <button class="btn btn-secondary" onclick="openContact()">Start Project Inquiries</button>
             </div>
         </section>
 
-        <h2 class="section-title">Core Services</h2>
-        <section class="grid" id="services-grid"></section>
+        <section id="services-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Capabilities & Disciplines</h2>
+                    <p class="section-desc">Tailored production packages focused on high impact and precision execution.</p>
+                </div>
+            </div>
+            <div class="services-grid" id="services-container"></div>
+        </section>
 
-        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
-            <h2 class="section-title" id="works">Selected Works</h2>
-            <div class="filter-bar" id="filter-bar">
-                <button class="filter-btn active" onclick="filterWorks('all')">All</button>
-                <button class="filter-btn" onclick="filterWorks('PV')">PV & Trailers</button>
-                <button class="filter-btn" onclick="filterWorks('MV')">Music Videos</button>
-                <button class="filter-btn" onclick="filterWorks('AI')">AI & Compositing</button>
+        <section id="works-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Selected Works</h2>
+                    <p class="section-desc">Explore past animated trailers, compositing tracks, and visual research.</p>
+                </div>
+                <div class="filter-nav" id="filter-nav">
+                    <button class="filter-btn active" onclick="applyFilter('all', this)">All</button>
+                    <button class="filter-btn" onclick="applyFilter('PV', this)">Trailers / PV</button>
+                    <button class="filter-btn" onclick="applyFilter('MV', this)">Music Videos</button>
+                    <button class="filter-btn" onclick="applyFilter('AI', this)">AI Systems</button>
+                </div>
             </div>
-        </div>
+            <div class="works-grid" id="works-container"></div>
+        </section>
 
-        <section class="grid" id="works-grid"></section>
-    </main>
+        <footer>
+            <div class="brand">
+                <div class="brand-icon">Y</div>
+                <span class="brand-name">YUJIN</span>
+            </div>
+            <p>&copy; 2026 Yujin — Built with focus on motion precision and modern aesthetics.</p>
+        </footer>
+    </div>
 
-    <!-- Interactive Detail Modal -->
-    <div class="modal" id="detail-modal" onclick="handleModalClick(event)">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal()">&times;</button>
-            <div class="modal-header">
-                <h2 id="modal-title">Project Title</h2>
-                <div class="modal-meta" id="modal-tags"></div>
-            </div>
-            <div class="modal-preview" id="modal-preview">Visual Demo Frame</div>
-            <div class="modal-body" id="modal-body">
-                Detailed description goes here.
-            </div>
-            <div class="cta-buttons" id="modal-actions">
-                <button class="btn btn-primary" onclick="openContactModal()">Inquire About Similar Project</button>
-            </div>
+    <!-- Modal Window -->
+    <div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div id="modal-content"></div>
         </div>
     </div>
 
-    <footer id="contact">
-        <p>&copy; 2026 Yujin. Built for high-performance visual storytelling.</p>
-    </footer>
-
     <script>
-        const servicesData = [
+        const services = [
             {
                 id: 's1',
+                num: '01 / DIRECTION',
                 title: 'Debut Trailers & PVs',
-                shortDesc: 'Custom animated promotional videos designed to leave a lasting impression for reveals and launches.',
-                fullDesc: 'Comprehensive video creation tailored specifically for channel debuts, asset reveals, and event trailers. Combines modern kinetic typography, custom sound sync, dynamic camera moves, and particle effects.',
-                tags: ['After Effects', 'Animation', 'Trailer']
+                desc: 'Tailor-made announcement visuals and reveal trailers optimized for content creator debuts and product launches.',
+                chips: ['After Effects', 'Kinetic Typography', '3D Camera Tracking']
             },
             {
                 id: 's2',
-                title: 'Music Videos (MV)',
-                shortDesc: 'Tailored visual motion compositions aligned with sound rhythm and creative aesthetic directions.',
-                fullDesc: 'Full-length music video composites synchronized strictly to musical beat structures. Incorporates rhythm timing, color grading, illustration integration, and complex transition pacing.',
-                tags: ['Compositing', 'Editing', 'Rhythm-Sync']
+                num: '02 / EDITING',
+                title: 'Music Video Compositing',
+                desc: 'Rhythmically aligned music videos featuring complex timeline pacing, custom effects, and color grading.',
+                chips: ['Compositing', 'Rhythm Sync', 'Visual Effects']
             },
             {
                 id: 's3',
-                title: 'AI Specialist & Design',
-                shortDesc: 'Blending generative tools with traditional graphic design to enhance visual workflows and media generation.',
-                fullDesc: 'Utilizing AI generation pipelines alongside traditional Adobe Creative Suite software to streamline asset retouching, background generation, texture creation, and novel visual aesthetic research.',
-                tags: ['AI Workflows', 'Graphic Design', 'Retouching']
+                num: '03 / INNOVATION',
+                title: 'AI Workflows & Graphics',
+                desc: 'Generative AI workflows seamlessly integrated into traditional graphic design and visual asset production.',
+                chips: ['AI Generation', 'Raster Compositing', 'Graphic Design']
             }
         ];
 
-        const worksData = [
+        const works = [
             {
                 id: 'w1',
                 category: 'PV',
                 title: 'Promotional Debut Trailer',
-                shortDesc: 'High-energy motion graphic trailer featuring intricate typography and dynamic visual effects.',
-                fullDesc: 'A 60-second premiere trailer crafted using custom After Effects compositing, kinetic typography layout, and spatial visual transitions designed for maximum audience engagement during launches.',
-                tags: ['PV', 'After Effects', 'Kinetic Motion']
+                desc: 'Dynamic 60-second premiere trailer crafted with custom motion typography and spatial particle sync.',
+                bg: 'linear-gradient(135deg, #4c1d95, #06b6d4)',
+                chips: ['PV', 'After Effects', 'Typography']
             },
             {
                 id: 'w2',
                 category: 'MV',
-                title: 'Cyberpunk MV Composition',
-                shortDesc: 'Full-length music video composite featuring custom visual stylization and synchronized timing.',
-                fullDesc: 'A complete music video visualizer featuring complex color grading, track-matched kinetic animations, and stylized visual composite overlays aligned perfectly with fast-paced audio tracks.',
-                tags: ['MV', 'Compositing', 'Visual Effects']
+                title: 'Cyberpunk Aesthetic MV',
+                desc: 'Rhythmically synchronized visual composite track created for a fast-paced electronic music release.',
+                bg: 'linear-gradient(135deg, #831843, #3b82f6)',
+                chips: ['MV', 'Compositing', 'FX']
             },
             {
                 id: 'w3',
                 category: 'AI',
-                title: 'Generative Retouch & Composite',
-                shortDesc: 'Advanced media treatment integrating specialized digital tools and compositing techniques.',
-                fullDesc: 'An experimental compositing workflow leveraging AI image generation and enhancement pipelines to build high-resolution visual backdrops and custom assets integrated directly into video tracks.',
-                tags: ['AI', 'Raster Retouching', 'Compositing']
+                title: 'Generative Asset Pipeline',
+                desc: 'Experimental image generation and asset enhancement workflow integrated into motion production.',
+                bg: 'linear-gradient(135deg, #064e3b, #6366f1)',
+                chips: ['AI', 'Raster Retouch', 'Workflow']
             }
         ];
 
         function renderServices() {
-            const container = document.getElementById('services-grid');
-            container.innerHTML = servicesData.map(item => `
-                <div class="card" onclick="openDetails('${item.id}', 'service')">
+            const container = document.getElementById('services-container');
+            container.innerHTML = services.map(s => `
+                <div class="service-card" onclick="openServiceModal('${s.id}')">
                     <div>
-                        <h3>${item.title}</h3>
-                        <p>${item.shortDesc}</p>
+                        <div class="service-number">${s.num}</div>
+                        <h3>${s.title}</h3>
+                        <p>${s.desc}</p>
                     </div>
-                    <div class="card-footer">
-                        <div class="tags">
-                            ${item.tags.map(t => `<span class="tag">${t}</span>`).join('')}
-                        </div>
-                        <span class="view-more">Details &rarr;</span>
+                    <div class="tag-group">
+                        ${s.chips.map(c => `<span class="chip">${c}</span>`).join('')}
                     </div>
                 </div>
             `).join('');
         }
 
         function renderWorks(filter = 'all') {
-            const container = document.getElementById('works-grid');
-            const filtered = filter === 'all' 
-                ? worksData 
-                : worksData.filter(item => item.category === filter);
-
-            container.innerHTML = filtered.map(item => `
-                <div class="card" onclick="openDetails('${item.id}', 'work')">
-                    <div>
-                        <h3>${item.title}</h3>
-                        <p>${item.shortDesc}</p>
+            const container = document.getElementById('works-container');
+            const filtered = filter === 'all' ? works : works.filter(w => w.category === filter);
+            
+            container.innerHTML = filtered.map(w => `
+                <div class="work-card" onclick="openWorkModal('${w.id}')">
+                    <div class="work-preview">
+                        <div class="work-preview-bg" style="background: ${w.bg}"></div>
+                        <span class="work-category-badge">${w.category}</span>
                     </div>
-                    <div class="card-footer">
-                        <div class="tags">
-                            ${item.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+                    <div class="work-details">
+                        <h3>${w.title}</h3>
+                        <p>${w.desc}</p>
+                        <div class="tag-group">
+                            ${w.chips.map(c => `<span class="chip">${c}</span>`).join('')}
                         </div>
-                        <span class="view-more">View Work &rarr;</span>
                     </div>
                 </div>
             `).join('');
         }
 
-        function filterWorks(category) {
-            document.querySelectorAll('#filter-bar .filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
+        function applyFilter(category, btnElement) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
             renderWorks(category);
         }
 
-        function openDetails(id, type) {
-            const list = type === 'service' ? servicesData : worksData;
-            const data = list.find(item => item.id === id);
+        function openServiceModal(id) {
+            const item = services.find(s => s.id === id);
+            if (!item) return;
 
-            if (!data) return;
-
-            document.getElementById('modal-title').innerText = data.title;
-            document.getElementById('modal-tags').innerHTML = data.tags.map(t => `<span class="tag">${t}</span>`).join('');
-            document.getElementById('modal-preview').innerText = `[ Active Preview Stage: ${data.title} ]`;
-            document.getElementById('modal-body').innerHTML = `<p>${data.fullDesc}</p>`;
-
-            const modal = document.getElementById('detail-modal');
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            const content = `
+                <div class="service-number">${item.num}</div>
+                <h2 style="font-family: var(--font-display); font-size: 2rem; color: var(--text-primary); margin-bottom: 1rem;">${item.title}</h2>
+                <p style="margin-bottom: 1.5rem;">Detailed service engagement framework for ${item.title}. Focused on delivered excellence, production pacing, and complete asset delivery.</p>
+                <div class="modal-stage">[ INTERACTIVE CAPABILITY PREVIEW ]</div>
+                <div class="tag-group" style="margin-bottom: 2rem;">
+                    ${item.chips.map(c => `<span class="chip">${c}</span>`).join('')}
+                </div>
+                <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="openContact()">Inquire About This Service</button>
+            `;
+            showModal(content);
         }
 
-        function openContactModal() {
-            document.getElementById('modal-title').innerText = 'Get in Touch';
-            document.getElementById('modal-tags').innerHTML = '<span class="tag">Commissions & Inquiries</span>';
-            document.getElementById('modal-preview').innerText = '[ Availability: Open for Select Projects ]';
-            document.getElementById('modal-body').innerHTML = `
-                <p>Have a trailer, MV, or motion graphics project in mind? Reach out with your project scope and timelines.</p>
-                <div style="margin-top: 1rem;">
-                    <strong>Direct Contact:</strong> Contact via preferred channels or social handles.
+        function openWorkModal(id) {
+            const item = works.find(w => w.id === id);
+            if (!item) return;
+
+            const content = `
+                <div class="work-category-badge" style="position: relative; top: 0; left: 0; display: inline-block; margin-bottom: 1rem;">${item.category}</div>
+                <h2 style="font-family: var(--font-display); font-size: 2rem; color: var(--text-primary); margin-bottom: 1rem;">${item.title}</h2>
+                <p style="margin-bottom: 1.5rem;">${item.desc}</p>
+                <div class="modal-stage" style="background: ${item.bg}">[ STAGE: ${item.title.toUpperCase()} ]</div>
+                <div class="tag-group" style="margin-bottom: 2rem;">
+                    ${item.chips.map(c => `<span class="chip">${c}</span>`).join('')}
                 </div>
+                <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="openContact()">Request Full Reel Access</button>
             `;
-            const modal = document.getElementById('detail-modal');
-            modal.classList.add('active');
+            showModal(content);
+        }
+
+        function openContact() {
+            const content = `
+                <h2 style="font-family: var(--font-display); font-size: 2rem; color: var(--text-primary); margin-bottom: 1rem;">Initiate Project</h2>
+                <p style="margin-bottom: 1.5rem;">Reach out directly for project availability, timeline quotes, and custom motion visual inquiries.</p>
+                <div style="background: var(--bg); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 2rem;">
+                    <div style="font-size: 0.85rem; color: var(--accent-cyan); font-weight: 700; margin-bottom: 0.25rem;">COMMISSION STATUS</div>
+                    <div style="color: var(--text-primary); font-weight: 600;">Currently Accepting Select Q3/Q4 Projects</div>
+                </div>
+                <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="closeModal()">Close Window</button>
+            `;
+            showModal(content);
+        }
+
+        function showModal(htmlContent) {
+            document.getElementById('modal-content').innerHTML = htmlContent;
+            document.getElementById('modal-overlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
-            const modal = document.getElementById('detail-modal');
-            modal.classList.remove('active');
+            document.getElementById('modal-overlay').classList.remove('active');
             document.body.style.overflow = 'auto';
         }
 
-        function handleModalClick(event) {
-            if (event.target.id === 'detail-modal') {
-                closeModal();
-            }
+        function handleOverlayClick(e) {
+            if (e.target.id === 'modal-overlay') closeModal();
         }
 
-        function scrollToSection(id) {
+        function scrollToId(id) {
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Initialize App
         renderServices();
         renderWorks();
     </script>
