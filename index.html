@@ -12,6 +12,7 @@
             --accent-dim: #45a29e;
             --text-main: #c5c6c7;
             --text-bright: #ffffff;
+            --overlay-bg: rgba(11, 12, 16, 0.85);
             --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
@@ -47,6 +48,7 @@
             font-size: 1.25rem;
             color: var(--text-bright);
             letter-spacing: 1px;
+            cursor: pointer;
         }
 
         .status-badge {
@@ -102,6 +104,8 @@
             border-radius: 6px;
             font-weight: 600;
             text-decoration: none;
+            cursor: pointer;
+            border: none;
             transition: all 0.2s ease;
         }
 
@@ -118,12 +122,37 @@
         .btn-secondary {
             border: 1px solid var(--text-main);
             color: var(--text-bright);
+            background: transparent;
         }
 
         .btn-secondary:hover {
             border-color: var(--accent-color);
             color: var(--accent-color);
             transform: translateY(-2px);
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background: rgba(102, 252, 241, 0.05);
         }
 
         .section-title {
@@ -148,6 +177,10 @@
             padding: 1.5rem;
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: transform 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .card:hover {
@@ -165,11 +198,17 @@
             color: var(--text-main);
         }
 
+        .card-footer {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         .tags {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-top: 1rem;
         }
 
         .tag {
@@ -178,6 +217,104 @@
             padding: 0.2rem 0.6rem;
             border-radius: 4px;
             font-size: 0.8rem;
+        }
+
+        .view-more {
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--overlay-bg);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--accent-dim);
+            border-radius: 12px;
+            max-width: 650px;
+            width: 100%;
+            padding: 2rem;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.25s ease;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: var(--accent-color);
+        }
+
+        .modal-header h2 {
+            color: var(--text-bright);
+            margin-bottom: 0.5rem;
+            padding-right: 2rem;
+        }
+
+        .modal-meta {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-body {
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-body p {
+            margin-bottom: 1rem;
+        }
+
+        .modal-preview {
+            width: 100%;
+            height: 200px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            color: var(--accent-dim);
+            font-size: 0.9rem;
         }
 
         footer {
@@ -206,61 +343,199 @@
             <h1>Motion Graphics & <span>AI Integration</span></h1>
             <p>Crafting dynamic visual experiences, promotional trailers, MVs, and high-impact visual content powered by modern creative tools.</p>
             <div class="cta-buttons">
-                <a href="#works" class="btn btn-primary">View Works</a>
-                <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+                <button class="btn btn-primary" onclick="scrollToSection('works')">View Works</button>
+                <button class="btn btn-secondary" onclick="openContactModal()">Get in Touch</button>
             </div>
         </section>
 
         <h2 class="section-title">Core Services</h2>
-        <section class="grid">
-            <div class="card">
-                <h3>Debut Trailers & PVs</h3>
-                <p>Custom animated promotional videos designed to leave a lasting impression for reveals and launches.</p>
-                <div class="tags">
-                    <span class="tag">After Effects</span>
-                    <span class="tag">Animation</span>
-                </div>
-            </div>
+        <section class="grid" id="services-grid"></section>
 
-            <div class="card">
-                <h3>Music Videos (MV)</h3>
-                <p>Tailored visual motion compositions aligned with sound rhythm and creative aesthetic directions.</p>
-                <div class="tags">
-                    <span class="tag">Compositing</span>
-                    <span class="tag">Editing</span>
-                </div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
+            <h2 class="section-title" id="works">Selected Works</h2>
+            <div class="filter-bar" id="filter-bar">
+                <button class="filter-btn active" onclick="filterWorks('all')">All</button>
+                <button class="filter-btn" onclick="filterWorks('PV')">PV & Trailers</button>
+                <button class="filter-btn" onclick="filterWorks('MV')">Music Videos</button>
+                <button class="filter-btn" onclick="filterWorks('AI')">AI & Compositing</button>
             </div>
+        </div>
 
-            <div class="card">
-                <h3>AI Specialist & Design</h3>
-                <p>Blending generative tools with traditional graphic design to enhance visual workflows and media generation.</p>
-                <div class="tags">
-                    <span class="tag">AI Workflows</span>
-                    <span class="tag">Graphic Design</span>
-                </div>
-            </div>
-        </section>
-
-        <h2 class="section-title" id="works">Selected Works</h2>
-        <section class="grid">
-            <div class="card">
-                <h3>Promotional PV Project</h3>
-                <p>High-energy motion graphic trailer featuring intricate typography and dynamic visual effects.</p>
-            </div>
-            <div class="card">
-                <h3>Animated Music Video</h3>
-                <p>Full-length music video composite featuring custom visual stylization and synchronized timing.</p>
-            </div>
-            <div class="card">
-                <h3>Visual Retouch & Composition</h3>
-                <p>Advanced media treatment integrating specialized digital tools and compositing techniques.</p>
-            </div>
-        </section>
+        <section class="grid" id="works-grid"></section>
     </main>
+
+    <!-- Interactive Detail Modal -->
+    <div class="modal" id="detail-modal" onclick="handleModalClick(event)">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <h2 id="modal-title">Project Title</h2>
+                <div class="modal-meta" id="modal-tags"></div>
+            </div>
+            <div class="modal-preview" id="modal-preview">Visual Demo Frame</div>
+            <div class="modal-body" id="modal-body">
+                Detailed description goes here.
+            </div>
+            <div class="cta-buttons" id="modal-actions">
+                <button class="btn btn-primary" onclick="openContactModal()">Inquire About Similar Project</button>
+            </div>
+        </div>
+    </div>
 
     <footer id="contact">
         <p>&copy; 2026 Yujin. Built for high-performance visual storytelling.</p>
     </footer>
 
+    <script>
+        const servicesData = [
+            {
+                id: 's1',
+                title: 'Debut Trailers & PVs',
+                shortDesc: 'Custom animated promotional videos designed to leave a lasting impression for reveals and launches.',
+                fullDesc: 'Comprehensive video creation tailored specifically for channel debuts, asset reveals, and event trailers. Combines modern kinetic typography, custom sound sync, dynamic camera moves, and particle effects.',
+                tags: ['After Effects', 'Animation', 'Trailer']
+            },
+            {
+                id: 's2',
+                title: 'Music Videos (MV)',
+                shortDesc: 'Tailored visual motion compositions aligned with sound rhythm and creative aesthetic directions.',
+                fullDesc: 'Full-length music video composites synchronized strictly to musical beat structures. Incorporates rhythm timing, color grading, illustration integration, and complex transition pacing.',
+                tags: ['Compositing', 'Editing', 'Rhythm-Sync']
+            },
+            {
+                id: 's3',
+                title: 'AI Specialist & Design',
+                shortDesc: 'Blending generative tools with traditional graphic design to enhance visual workflows and media generation.',
+                fullDesc: 'Utilizing AI generation pipelines alongside traditional Adobe Creative Suite software to streamline asset retouching, background generation, texture creation, and novel visual aesthetic research.',
+                tags: ['AI Workflows', 'Graphic Design', 'Retouching']
+            }
+        ];
+
+        const worksData = [
+            {
+                id: 'w1',
+                category: 'PV',
+                title: 'Promotional Debut Trailer',
+                shortDesc: 'High-energy motion graphic trailer featuring intricate typography and dynamic visual effects.',
+                fullDesc: 'A 60-second premiere trailer crafted using custom After Effects compositing, kinetic typography layout, and spatial visual transitions designed for maximum audience engagement during launches.',
+                tags: ['PV', 'After Effects', 'Kinetic Motion']
+            },
+            {
+                id: 'w2',
+                category: 'MV',
+                title: 'Cyberpunk MV Composition',
+                shortDesc: 'Full-length music video composite featuring custom visual stylization and synchronized timing.',
+                fullDesc: 'A complete music video visualizer featuring complex color grading, track-matched kinetic animations, and stylized visual composite overlays aligned perfectly with fast-paced audio tracks.',
+                tags: ['MV', 'Compositing', 'Visual Effects']
+            },
+            {
+                id: 'w3',
+                category: 'AI',
+                title: 'Generative Retouch & Composite',
+                shortDesc: 'Advanced media treatment integrating specialized digital tools and compositing techniques.',
+                fullDesc: 'An experimental compositing workflow leveraging AI image generation and enhancement pipelines to build high-resolution visual backdrops and custom assets integrated directly into video tracks.',
+                tags: ['AI', 'Raster Retouching', 'Compositing']
+            }
+        ];
+
+        function renderServices() {
+            const container = document.getElementById('services-grid');
+            container.innerHTML = servicesData.map(item => `
+                <div class="card" onclick="openDetails('${item.id}', 'service')">
+                    <div>
+                        <h3>${item.title}</h3>
+                        <p>${item.shortDesc}</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="tags">
+                            ${item.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+                        </div>
+                        <span class="view-more">Details &rarr;</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderWorks(filter = 'all') {
+            const container = document.getElementById('works-grid');
+            const filtered = filter === 'all' 
+                ? worksData 
+                : worksData.filter(item => item.category === filter);
+
+            container.innerHTML = filtered.map(item => `
+                <div class="card" onclick="openDetails('${item.id}', 'work')">
+                    <div>
+                        <h3>${item.title}</h3>
+                        <p>${item.shortDesc}</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="tags">
+                            ${item.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+                        </div>
+                        <span class="view-more">View Work &rarr;</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterWorks(category) {
+            document.querySelectorAll('#filter-bar .filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            renderWorks(category);
+        }
+
+        function openDetails(id, type) {
+            const list = type === 'service' ? servicesData : worksData;
+            const data = list.find(item => item.id === id);
+
+            if (!data) return;
+
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-tags').innerHTML = data.tags.map(t => `<span class="tag">${t}</span>`).join('');
+            document.getElementById('modal-preview').innerText = `[ Active Preview Stage: ${data.title} ]`;
+            document.getElementById('modal-body').innerHTML = `<p>${data.fullDesc}</p>`;
+
+            const modal = document.getElementById('detail-modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openContactModal() {
+            document.getElementById('modal-title').innerText = 'Get in Touch';
+            document.getElementById('modal-tags').innerHTML = '<span class="tag">Commissions & Inquiries</span>';
+            document.getElementById('modal-preview').innerText = '[ Availability: Open for Select Projects ]';
+            document.getElementById('modal-body').innerHTML = `
+                <p>Have a trailer, MV, or motion graphics project in mind? Reach out with your project scope and timelines.</p>
+                <div style="margin-top: 1rem;">
+                    <strong>Direct Contact:</strong> Contact via preferred channels or social handles.
+                </div>
+            `;
+            const modal = document.getElementById('detail-modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('detail-modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleModalClick(event) {
+            if (event.target.id === 'detail-modal') {
+                closeModal();
+            }
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Initialize App
+        renderServices();
+        renderWorks();
+    </script>
 </body>
 </html>
