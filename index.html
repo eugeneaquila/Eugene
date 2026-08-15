@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YUJIN — Motion & Visual Engineering</title>
+    <title>YUJIN — Motion Design & Indie Dev</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -544,14 +544,14 @@
             </a>
             <div class="status-pill">
                 <div class="status-dot"></div>
-                <span>Available for Select Commissions</span>
+                <span>Available for Select Projects</span>
             </div>
         </header>
 
         <section class="hero">
-            <div class="hero-tag">Motion & Visual Engineering</div>
-            <h1>Architecting <span class="gradient-text">visual kinetic</span> experiences.</h1>
-            <p>Specializing in custom promotional debut trailers, music videos (MVs), and AI-augmented creative pipelines for digital-first creators and visual properties.</p>
+            <div class="hero-tag">Vibe Coder & Indie Dev</div>
+            <h1>Building <span class="gradient-text">visual software</span> & kinetic motion.</h1>
+            <p>Crafting custom promotional trailers, music videos (MVs), micro-apps, and creative digital experiments at the intersection of indie coding and visual engineering.</p>
             <div class="hero-actions">
                 <button class="btn btn-primary" onclick="scrollToId('works-section')">Explore Portfolio</button>
                 <button class="btn btn-secondary" onclick="openContact()">Start Project Inquiries</button>
@@ -562,7 +562,7 @@
             <div class="section-header">
                 <div>
                     <h2 class="section-title">Capabilities & Disciplines</h2>
-                    <p class="section-desc">Tailored production packages focused on high impact and precision execution.</p>
+                    <p class="section-desc">From motion graphics to creative coding, delivering high-impact visual media and indie web builds.</p>
                 </div>
             </div>
             <div class="services-grid" id="services-container"></div>
@@ -572,13 +572,13 @@
             <div class="section-header">
                 <div>
                     <h2 class="section-title">Selected Works</h2>
-                    <p class="section-desc">Explore past animated trailers, compositing tracks, and visual research.</p>
+                    <p class="section-desc">Explore past animated trailers, music video composites, and web builds.</p>
                 </div>
                 <div class="filter-nav" id="filter-nav">
                     <button class="filter-btn active" onclick="applyFilter('all', this)">All</button>
                     <button class="filter-btn" onclick="applyFilter('PV', this)">Trailers / PV</button>
                     <button class="filter-btn" onclick="applyFilter('MV', this)">Music Videos</button>
-                    <button class="filter-btn" onclick="applyFilter('AI', this)">AI Systems</button>
+                    <button class="filter-btn" onclick="applyFilter('DEV', this)">Indie Dev</button>
                 </div>
             </div>
             <div class="works-grid" id="works-container"></div>
@@ -589,7 +589,7 @@
                 <div class="brand-icon">Y</div>
                 <span class="brand-name">YUJIN</span>
             </div>
-            <p>&copy; 2026 Yujin — Built with focus on motion precision and modern aesthetics.</p>
+            <p>&copy; 2026 Yujin — Vibe Coding & Motion Design.</p>
         </footer>
     </div>
 
@@ -602,10 +602,8 @@
     </div>
 
     <script>
-        // Helper function: Accepts ANY YouTube URL format and converts it to an embed-ready string
         function extractYouTubeId(url) {
             if (!url) return null;
-            // Matches standard, shortened, embed, and shorts YouTube links
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             const match = url.match(regExp);
             return (match && match[2].length === 11) ? match[2] : null;
@@ -617,32 +615,31 @@
                 num: '01 / DIRECTION',
                 title: 'Debut Trailers & PVs',
                 desc: 'Tailor-made announcement visuals and reveal trailers optimized for content creator debuts and product launches.',
-                chips: ['After Effects', 'Kinetic Typography', '3D Camera Tracking']
+                chips: ['After Effects', 'Kinetic Typography', 'Motion Design']
             },
             {
                 id: 's2',
                 num: '02 / EDITING',
                 title: 'Music Video Compositing',
-                desc: 'Rhythmically aligned music videos featuring complex timeline pacing, custom effects, and color grading.',
+                desc: 'Rhythmically aligned music videos featuring complex timeline pacing, custom visual effects, and precise rhythm sync.',
                 chips: ['Compositing', 'Rhythm Sync', 'Visual Effects']
             },
             {
                 id: 's3',
-                num: '03 / INNOVATION',
-                title: 'AI Workflows & Graphics',
-                desc: 'Generative AI workflows seamlessly integrated into traditional graphic design and visual asset production.',
-                chips: ['AI Generation', 'Raster Compositing', 'Graphic Design']
+                num: '03 / VIBE CODING',
+                title: 'Indie Dev & Micro-Apps',
+                desc: 'Building lightweight web apps, dynamic micro-tools, and interactive visual experiences with modern vibe coding techniques.',
+                chips: ['Indie Dev', 'Creative Web', 'UI Engineering']
             }
         ];
 
-        // PASTE YOUR NORMAL YOUTUBE LINKS HERE IN 'url'
         const works = [
             {
                 id: 'w1',
                 category: 'PV',
                 title: 'Promotional Debut Trailer',
                 desc: 'Dynamic 60-second premiere trailer crafted with custom motion typography and spatial particle sync.',
-                url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // <--- Paste standard link here
+                url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
                 fallbackBg: 'linear-gradient(135deg, #4c1d95, #06b6d4)',
                 chips: ['PV', 'After Effects', 'Typography']
             },
@@ -651,18 +648,18 @@
                 category: 'MV',
                 title: 'Cyberpunk Aesthetic MV',
                 desc: 'Rhythmically synchronized visual composite track created for a fast-paced electronic music release.',
-                url: 'https://youtu.be/dQw4w9WgXcQ', // <--- Paste short link here
+                url: 'https://youtu.be/dQw4w9WgXcQ',
                 fallbackBg: 'linear-gradient(135deg, #831843, #3b82f6)',
                 chips: ['MV', 'Compositing', 'FX']
             },
             {
                 id: 'w3',
-                category: 'AI',
-                title: 'Generative Asset Pipeline',
-                desc: 'Experimental image generation and asset enhancement workflow integrated into motion production.',
-                url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // <--- Paste standard link here
+                category: 'DEV',
+                title: 'Interactive Web Prototype',
+                desc: 'An indie web tool built for rapid visual feedback and interactive UI experimentation.',
+                url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
                 fallbackBg: 'linear-gradient(135deg, #064e3b, #6366f1)',
-                chips: ['AI', 'Raster Retouch', 'Workflow']
+                chips: ['Indie Dev', 'Web App', 'Vibe Coding']
             }
         ];
 
@@ -688,7 +685,6 @@
             
             container.innerHTML = filtered.map(w => {
                 const videoId = extractYouTubeId(w.url);
-                // Auto-fetch YouTube thumbnail if ID is available, otherwise use fallback styling
                 const bgStyle = videoId 
                     ? `background-image: url('https://img.youtube.com/vi/${videoId}/hqdefault.jpg');` 
                     : `background: ${w.fallbackBg};`;
@@ -741,8 +737,6 @@
             if (!item) return;
 
             const videoId = extractYouTubeId(item.url);
-            
-            // Build embed frame or fallback display
             const stageContent = videoId ? `
                 <iframe 
                     src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
@@ -752,7 +746,7 @@
                 </iframe>
             ` : `
                 <div style="display: grid; place-items: center; height: 100%; color: var(--accent-cyan); font-family: var(--font-display);">
-                    [ Direct Link: <a href="${item.url}" target="_blank" style="color:#fff; text-decoration:underline;">Open External Video</a> ]
+                    [ Direct Link: <a href="${item.url}" target="_blank" style="color:#fff; text-decoration:underline;">Open External Project</a> ]
                 </div>
             `;
 
@@ -768,7 +762,7 @@
                 <div class="tag-group" style="margin-bottom: 2rem;">
                     ${item.chips.map(c => `<span class="chip">${c}</span>`).join('')}
                 </div>
-                <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="openContact()">Request Full Reel Access</button>
+                <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="openContact()">Request Full Details</button>
             `;
             showModal(content);
         }
@@ -776,10 +770,10 @@
         function openContact() {
             const content = `
                 <h2 style="font-family: var(--font-display); font-size: 2rem; color: var(--text-primary); margin-bottom: 1rem;">Initiate Project</h2>
-                <p style="margin-bottom: 1.5rem;">Reach out directly for project availability, timeline quotes, and custom motion visual inquiries.</p>
+                <p style="margin-bottom: 1.5rem;">Reach out directly for project availability, timeline quotes, and custom motion visual or indie dev inquiries.</p>
                 <div style="background: var(--bg); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 2rem;">
-                    <div style="font-size: 0.85rem; color: var(--accent-cyan); font-weight: 700; margin-bottom: 0.25rem;">COMMISSION STATUS</div>
-                    <div style="color: var(--text-primary); font-weight: 600;">Currently Accepting Select Q3/Q4 Projects</div>
+                    <div style="font-size: 0.85rem; color: var(--accent-cyan); font-weight: 700; margin-bottom: 0.25rem;">PROJECT STATUS</div>
+                    <div style="color: var(--text-primary); font-weight: 600;">Open for Select Commissions & Collaborations</div>
                 </div>
                 <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="closeModal()">Close Window</button>
             `;
@@ -795,7 +789,6 @@
         function closeModal() {
             document.getElementById('modal-overlay').classList.remove('active');
             document.body.style.overflow = 'auto';
-            // Clear inner HTML to stop video audio playing when closed
             document.getElementById('modal-content').innerHTML = '';
         }
 
