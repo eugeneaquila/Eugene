@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EUGENE — Motion Design & Indie Dev</title>
+    <title>EUGENE AQUILA — Motion Design & Indie Dev</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -393,6 +393,45 @@
             border-color: var(--accent-violet);
         }
 
+
+        .website-overlay {
+            position: relative;
+            z-index: 2;
+            padding: 0.55rem 0.9rem;
+            border-radius: 100px;
+            background: rgba(7, 9, 14, 0.78);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            backdrop-filter: blur(8px);
+        }
+
+        .screenshot-stage {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            background: var(--bg);
+        }
+
+        .screenshot-slide {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .screenshot-link {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            padding: 0.7rem 1rem;
+            font-size: 0.85rem;
+        }
+
         .play-icon {
             width: 0;
             height: 0;
@@ -540,7 +579,7 @@
         <header>
             <a href="#" class="brand">
                 <div class="brand-icon">E</div>
-                <span class="brand-name">EUGENE</span>
+                <span class="brand-name">EUGENE AQUILA</span>
             </a>
             <div class="status-pill">
                 <div class="status-dot"></div>
@@ -549,13 +588,23 @@
         </header>
 
         <section class="hero">
-            <div class="hero-tag">Vibe Coder & Indie Dev</div>
-            <h1>Building <span class="gradient-text">visual software</span> & kinetic motion.</h1>
-            <p>Crafting custom promotional trailers, music videos (MVs), micro-apps, and creative digital experiments at the intersection of indie coding and visual engineering.</p>
+            <div class="hero-tag">Creative Founder · Motion Designer · Indie Developer</div>
+            <h1>Building <span class="gradient-text">ideas, brands & digital experiences</span>.</h1>
+            <p>I’m EUGENE AQUILA, a multidisciplinary creative building visual experiences and independent digital products. Alongside motion design and creative development, I am the Founder behind EUGENE AQUILA Card, AppPUN, and Lunarist Studio.</p>
             <div class="hero-actions">
                 <button class="btn btn-primary" onclick="scrollToId('works-section')">Explore Portfolio</button>
                 <button class="btn btn-secondary" onclick="openContact()">Start Project Inquiries</button>
             </div>
+        </section>
+
+        <section id="ventures-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Founder & Independent Ventures</h2>
+                    <p class="section-desc">Projects I founded across creative technology, digital products, and collaborative creative work.</p>
+                </div>
+            </div>
+            <div class="services-grid" id="ventures-container"></div>
         </section>
 
         <section id="services-section">
@@ -578,7 +627,8 @@
                     <button class="filter-btn active" onclick="applyFilter('all', this)">All</button>
                     <button class="filter-btn" onclick="applyFilter('PV', this)">Trailers / PV</button>
                     <button class="filter-btn" onclick="applyFilter('MV', this)">Music Videos</button>
-                    <button class="filter-btn" onclick="applyFilter('DEV', this)">Indie Dev</button>
+                    <button class="filter-btn" onclick="applyFilter('DEV', this)">Founder Projects</button>
+                    <button class="filter-btn" onclick="applyFilter('FOUNDER', this)">Founder Projects</button>
                 </div>
             </div>
             <div class="works-grid" id="works-container"></div>
@@ -587,9 +637,9 @@
         <footer>
             <div class="brand">
                 <div class="brand-icon">E</div>
-                <span class="brand-name">EUGENE</span>
+                <span class="brand-name">EUGENE AQUILA</span>
             </div>
-            <p>&copy; 2026 Eugene — Vibe Coding & Motion Design.</p>
+            <p>&copy; 2026 EUGENE AQUILA — Vibe Coding & Motion Design.</p>
         </footer>
     </div>
 
@@ -608,6 +658,30 @@
             const match = url.match(regExp);
             return (match && match[2].length === 11) ? match[2] : null;
         }
+
+        const ventures = [
+            {
+                id: 'v1',
+                num: '01 / FOUNDER',
+                title: 'EUGENE AQUILA Card',
+                desc: 'A trading card and investment-focused digital ecosystem designed around collecting, ownership, community interaction, and a dedicated web application.',
+                chips: ['Founder', 'Product Vision', 'Web App', 'Creative Direction']
+            },
+            {
+                id: 'v2',
+                num: '02 / FOUNDER',
+                title: 'AppPUN',
+                desc: 'An independent application project built to explore practical digital tools, product development, and accessible web-based experiences.',
+                chips: ['Founder', 'Indie Product', 'Web Development', 'Problem Solving']
+            },
+            {
+                id: 'v3',
+                num: '03 / FOUNDER',
+                title: 'Lunarist Studio',
+                desc: 'A collaborative creative studio bringing together motion artists, graphic designers, illustrators, and other creative specialists to turn ambitious ideas into visual experiences.',
+                chips: ['Founder', 'Creative Direction', 'Team Building', 'Studio Management']
+            }
+        ];
 
         const services = [
             {
@@ -635,6 +709,36 @@
 
         const works = [
             {
+                id: 'w0',
+                category: 'FOUNDER',
+                title: 'EUGENE AQUILA Card',
+                desc: 'Founder-led digital trading card platform.',
+                url: 'https://linktr.ee/EUGENE AQUILAaquila',
+                screenshots: ['https://image.thum.io/get/width/1200/crop/800/noanimate/https://linktr.ee/EUGENE AQUILAaquila'],
+                fallbackBg: 'linear-gradient(135deg, #4c1d95, #0f766e)',
+                chips: ['Founder', 'Product', 'Web App']
+            },
+            {
+                id: 'w00',
+                category: 'FOUNDER',
+                title: 'AppPUN',
+                desc: 'Founder and developer of an independent web application.',
+                url: 'https://app-pajak-umkm-npwp.vercel.app/',
+                screenshots: ['https://image.thum.io/get/width/1200/crop/800/noanimate/https://app-pajak-umkm-npwp.vercel.app/'],
+                fallbackBg: 'linear-gradient(135deg, #0f766e, #2563eb)',
+                chips: ['Founder', 'Indie Dev', 'Web App']
+            },
+            {
+                id: 'w000',
+                category: 'FOUNDER',
+                title: 'Lunarist Studio',
+                desc: 'Founder-led creative studio focused on collaboration and visual production.',
+                url: 'https://linktr.ee/EUGENE AQUILAaquila',
+                screenshots: ['https://image.thum.io/get/width/1200/crop/800/noanimate/https://linktr.ee/EUGENE AQUILAaquila'],
+                fallbackBg: 'linear-gradient(135deg, #7c3aed, #db2777)',
+                chips: ['Founder', 'Creative Direction', 'Leadership']
+            },
+            {
                 id: 'w1',
                 category: 'PV',
                 title: 'Promotional Debut Trailer',
@@ -646,22 +750,44 @@
             {
                 id: 'w2',
                 category: 'MV',
-                title: 'Cyberpunk Aesthetic MV',
-                desc: 'Rhythmically synchronized visual composite track created for a fast-paced electronic music release.',
+                title: 'Music Video',
+                desc: '',
                 url: 'https://youtu.be/dQw4w9WgXcQ',
                 fallbackBg: 'linear-gradient(135deg, #831843, #3b82f6)',
                 chips: ['MV', 'Compositing', 'FX']
-            },
-            {
-                id: 'w3',
-                category: 'DEV',
-                title: 'Interactive Web Prototype',
-                desc: 'An indie web tool built for rapid visual feedback and interactive UI experimentation.',
-                url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-                fallbackBg: 'linear-gradient(135deg, #064e3b, #6366f1)',
-                chips: ['Indie Dev', 'Web App', 'Vibe Coding']
             }
         ];
+
+        function renderVentures() {
+            const container = document.getElementById('ventures-container');
+            container.innerHTML = ventures.map(v => `
+                <div class="service-card" onclick="openVentureModal('${v.id}')">
+                    <div>
+                        <div class="service-number">${v.num}</div>
+                        <h3>${v.title}</h3>
+                        <p>${v.desc}</p>
+                    </div>
+                    <div class="tag-group">
+                        ${v.chips.map(c => `<span class="chip">${c}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openVentureModal(id) {
+            const item = ventures.find(v => v.id === id);
+            if (!item) return;
+            const content = `
+                <div class="service-number">${item.num}</div>
+                <h2 style="font-family: var(--font-display); font-size: 2rem; color: var(--text-primary); margin-bottom: 1rem;">${item.title}</h2>
+                <p style="margin-bottom: 1.5rem;">${item.desc}</p>
+                <div class="tag-group" style="margin-bottom: 2rem;">
+                    ${item.chips.map(c => `<span class="chip">${c}</span>`).join('')}
+                </div>
+                <p style="color: var(--text-secondary);">As Founder, my role spans product vision, creative direction, development strategy, and shaping the overall experience of the project.</p>
+            `;
+            showModal(content);
+        }
 
         function renderServices() {
             const container = document.getElementById('services-container');
@@ -685,17 +811,18 @@
             
             container.innerHTML = filtered.map(w => {
                 const videoId = extractYouTubeId(w.url);
-                const bgStyle = videoId 
-                    ? `background-image: url('https://img.youtube.com/vi/${videoId}/hqdefault.jpg');` 
-                    : `background: ${w.fallbackBg};`;
+                const bgStyle = videoId
+                    ? `background-image: url('https://img.youtube.com/vi/${videoId}/hqdefault.jpg');`
+                    : (w.screenshots ? `background-image: url('${w.screenshots[0]}');` : `background: ${w.fallbackBg};`);
+                const overlay = videoId ? `
+                            <div class="play-overlay"><div class="play-icon"></div></div>` : `
+                            <div class="website-overlay"><span>Website Preview</span></div>`;
 
                 return `
                     <div class="work-card" onclick="openWorkModal('${w.id}')">
                         <div class="work-preview">
                             <div class="work-preview-bg" style="${bgStyle}"></div>
-                            <div class="play-overlay">
-                                <div class="play-icon"></div>
-                            </div>
+                            ${overlay}
                             <span class="work-category-badge">${w.category}</span>
                         </div>
                         <div class="work-details">
@@ -745,8 +872,9 @@
                     allowfullscreen>
                 </iframe>
             ` : `
-                <div style="display: grid; place-items: center; height: 100%; color: var(--accent-cyan); font-family: var(--font-display);">
-                    [ Direct Link: <a href="${item.url}" target="_blank" style="color:#fff; text-decoration:underline;">Open External Project</a> ]
+                <div class="screenshot-stage">
+                    ${(item.screenshots || []).map((shot, index) => `<img src="${shot}" alt="${item.title} screenshot ${index + 1}" class="screenshot-slide ${index === 0 ? 'active' : ''}">`).join('')}
+                    <a href="${item.url}" target="_blank" class="btn btn-primary screenshot-link">Visit Website ↗</a>
                 </div>
             `;
 
@@ -800,6 +928,7 @@
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
 
+        renderVentures();
         renderServices();
         renderWorks();
     </script>
