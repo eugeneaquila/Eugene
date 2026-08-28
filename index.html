@@ -407,6 +407,18 @@
             backdrop-filter: blur(8px);
         }
 
+        .work-preview .screenshot-slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity .65s ease, transform .65s ease;
+        }
+        .work-preview .screenshot-slide.active { opacity: .88; }
+        .work-card:hover .screenshot-slide.active { transform: scale(1.04); }
+
         .screenshot-stage {
             width: 100%;
             height: 100%;
@@ -627,7 +639,6 @@
                     <button class="filter-btn active" onclick="applyFilter('all', this)">All</button>
                     <button class="filter-btn" onclick="applyFilter('PV', this)">Trailers / PV</button>
                     <button class="filter-btn" onclick="applyFilter('MV', this)">Music Videos</button>
-                    <button class="filter-btn" onclick="applyFilter('DEV', this)">Founder Projects</button>
                     <button class="filter-btn" onclick="applyFilter('FOUNDER', this)">Founder Projects</button>
                 </div>
             </div>
@@ -708,7 +719,6 @@
         ];
 
         const works = [
-         <!-- Replace the existing three FOUNDER project objects inside `const works` with these -->
 {
     id: 'w0',
     category: 'FOUNDER',
@@ -753,8 +763,7 @@
     ],
     fallbackBg: 'linear-gradient(135deg, #7c3aed, #db2777)',
     chips: ['Founder', 'Creative Direction', 'Leadership']
-}
-
+},
             {
                 id: 'w1',
                 category: 'PV',
@@ -822,24 +831,46 @@
             `).join('');
         }
 
+        let carouselIntervals = [];
+
+        function startCarousels() {
+            // Clear any carousels from a previous render so switching filters
+            // doesn't stack up intervals pointing at detached DOM nodes.
+            carouselIntervals.forEach(id => clearInterval(id));
+            carouselIntervals = [];
+
+            document.querySelectorAll('.work-card').forEach(card => {
+                const slides = card.querySelectorAll('.screenshot-slide');
+                if (slides.length < 2) return;
+                let current = 0;
+                const intervalId = setInterval(() => {
+                    slides[current].classList.remove('active');
+                    current = (current + 1) % slides.length;
+                    slides[current].classList.add('active');
+                }, 2800);
+                carouselIntervals.push(intervalId);
+            });
+        }
+
         function renderWorks(filter = 'all') {
             const container = document.getElementById('works-container');
             const filtered = filter === 'all' ? works : works.filter(w => w.category === filter);
             
             container.innerHTML = filtered.map(w => {
                 const videoId = extractYouTubeId(w.url);
-                const bgStyle = videoId
-                    ? `background-image: url('https://img.youtube.com/vi/${videoId}/hqdefault.jpg');`
-                    : (w.screenshots ? `background-image: url('${w.screenshots[0]}');` : `background: ${w.fallbackBg};`);
-                const overlay = videoId ? `
-                            <div class="play-overlay"><div class="play-icon"></div></div>` : `
-                            <div class="website-overlay"><span>Website Preview</span></div>`;
+                const previewMedia = videoId
+                    ? `<div class="work-preview-bg" style="background-image: url('https://img.youtube.com/vi/${videoId}/hqdefault.jpg');"></div>
+                       <div class="play-overlay"><div class="play-icon"></div></div>`
+                    : w.screenshots
+                        ? `${w.screenshots.map((shot, index) => `<img src="${shot}" alt="${w.title} screenshot ${index + 1}" class="screenshot-slide ${index === 0 ? 'active' : ''}">`).join('')}
+                           <div class="website-overlay"><span>Screenshot Carousel</span></div>`
+                        : `<div class="work-preview-bg" style="background: ${w.fallbackBg};"></div>
+                           <div class="website-overlay"><span>Website Preview</span></div>`;
 
                 return `
                     <div class="work-card" onclick="openWorkModal('${w.id}')">
                         <div class="work-preview">
-                            <div class="work-preview-bg" style="${bgStyle}"></div>
-                            ${overlay}
+                            ${previewMedia}
                             <span class="work-category-badge">${w.category}</span>
                         </div>
                         <div class="work-details">
@@ -852,6 +883,8 @@
                     </div>
                 `;
             }).join('');
+
+            startCarousels();
         }
 
         function applyFilter(category, btnElement) {
