@@ -407,15 +407,17 @@
             backdrop-filter: blur(8px);
         }
 
-        .work-preview .screenshot-slide {
+        .screenshot-slide {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
             opacity: 0;
-            transition: opacity .65s ease, transform .65s ease;
+            transition: opacity .6s ease, transform .6s ease;
         }
+        .screenshot-slide.active { opacity: 1; }
         .work-preview .screenshot-slide.active { opacity: .88; }
         .work-card:hover .screenshot-slide.active { transform: scale(1.04); }
 
@@ -427,13 +429,6 @@
             place-items: center;
             overflow: hidden;
             background: var(--bg);
-        }
-
-        .screenshot-slide {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
         }
 
         .screenshot-link {
@@ -909,6 +904,27 @@
             showModal(content);
         }
 
+        let modalCarouselInterval = null;
+
+        function stopModalCarousel() {
+            if (modalCarouselInterval) {
+                clearInterval(modalCarouselInterval);
+                modalCarouselInterval = null;
+            }
+        }
+
+        function startModalCarousel() {
+            stopModalCarousel();
+            const slides = document.querySelectorAll('#modal-content .screenshot-slide');
+            if (slides.length < 2) return;
+            let current = 0;
+            modalCarouselInterval = setInterval(() => {
+                slides[current].classList.remove('active');
+                current = (current + 1) % slides.length;
+                slides[current].classList.add('active');
+            }, 2800);
+        }
+
         function openWorkModal(id) {
             const item = works.find(w => w.id === id);
             if (!item) return;
@@ -943,6 +959,7 @@
                 <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="openContact()">Request Full Details</button>
             `;
             showModal(content);
+            startModalCarousel();
         }
 
         function openContact() {
@@ -965,6 +982,7 @@
         }
 
         function closeModal() {
+            stopModalCarousel();
             document.getElementById('modal-overlay').classList.remove('active');
             document.body.style.overflow = 'auto';
             document.getElementById('modal-content').innerHTML = '';
