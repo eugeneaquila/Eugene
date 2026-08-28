@@ -1,0 +1,35 @@
+
+/* Add this CSS inside <style> */
+.work-preview .screenshot-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity .65s ease, transform .65s ease;
+}
+.work-preview .screenshot-slide.active { opacity: .88; }
+.work-card:hover .screenshot-slide.active { transform: scale(1.04); }
+
+/* Replace the screenshot part of renderWorks with this preview logic */
+const previewMedia = videoId
+    ? `<div class="work-preview-bg" style="background-image:url('https://img.youtube.com/vi/${videoId}/hqdefault.jpg');"></div>
+       <div class="play-overlay"><div class="play-icon"></div></div>`
+    : w.screenshots
+        ? `${w.screenshots.map((shot, index) => `<img src="${shot}" alt="${w.title} screenshot ${index + 1}" class="screenshot-slide ${index === 0 ? 'active' : ''}">`).join('')}
+           <div class="website-overlay"><span>Screenshot Carousel</span></div>`
+        : `<div class="work-preview-bg" style="background:${w.fallbackBg};"></div>`;
+
+setTimeout(() => {
+    document.querySelectorAll('.work-card').forEach(card => {
+        const slides = card.querySelectorAll('.screenshot-slide');
+        if (slides.length < 2) return;
+        let current = 0;
+        setInterval(() => {
+            slides[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
+        }, 2800);
+    });
+}, 0);
